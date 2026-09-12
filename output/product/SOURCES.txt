@@ -1,8 +1,0 @@
-DPN iOS product preview
-
-Source: dpn-app-store-preview/assets/ (sibling repository)
-dpn-brand-1-home.png
-dpn-brand-2-smart-route.png
-dpn-brand-3-dns-filter.png
-
-Existing App Store promotional artwork, resized proportionally and arranged left to right. No UI content or statistics were altered. These are supplied promotional previews, not newly captured live screenshots. mac-named assets also depict phones and were not used as desktop screenshots.
