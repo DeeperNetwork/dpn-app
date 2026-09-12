@@ -4,6 +4,8 @@
 
 [Download DPN](https://dpn.deeper.network/download) | [How DPN Works](https://dpn.deeper.network/how-dpn-works) | [FAQ](https://dpn.deeper.network/faq)
 
+> **7-day free trial code:** `ZJXYY8NB`
+
 ![DPN: Smart Route](output/imagegen/dpn-smart-route.svg)
 
 ## Why DPN
