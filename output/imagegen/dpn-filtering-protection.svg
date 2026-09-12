@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
+<title id="title">Ad filtering. Safer connections.</title>
+<desc id="desc">DPN filters supported advertising, tracking and malicious connections. Unwanted traffic stops at a filtering barrier while video, music and web content remain accessible.</desc>
+<defs>
+  <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f9fafb"/><stop offset="1" stop-color="#eff6ff"/></linearGradient>
+  <symbol id="stop" viewBox="0 0 24 24"><path d="m7 7 10 10M17 7 7 17" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</defs>
+<rect width="1536" height="1024" fill="url(#bg)"/>
+<ellipse cx="765" cy="530" rx="340" ry="330" fill="#dbeafe" opacity=".3"/>
+<g font-family="Arial, Helvetica, sans-serif">
+<text x="768" y="112" text-anchor="middle" font-size="64" font-weight="700" fill="#172554">Ad filtering. Safer connections.</text>
+<text x="768" y="162" text-anchor="middle" font-size="22" fill="#64748b">Less interruption. More immersion.</text>
+
+<!-- Unwanted traffic terminates visibly at the barrier. -->
+<g fill="#fff" stroke="#e5e7eb" stroke-width="2">
+<rect x="80" y="295" width="300" height="110" rx="18"/>
+<rect x="80" y="475" width="300" height="110" rx="18"/>
+<rect x="80" y="655" width="300" height="110" rx="18"/>
+</g>
+<g fill="#fef2f2"><rect x="104" y="318" width="64" height="64" rx="16"/><rect x="104" y="498" width="64" height="64" rx="16"/><rect x="104" y="678" width="64" height="64" rx="16"/></g>
+<!-- Generic advertising, tracking and warning icons. -->
+<g fill="none" stroke="#ef4444" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M119 341h12l22-10v38l-22-10h-12zM125 359l5 13h9l-5-12"/>
+<path d="M114 530q22-28 44 0-22 28-44 0Z"/><circle cx="136" cy="530" r="7"/>
+<path d="m136 690 23 39h-46zM136 704v10M136 721v1"/>
+</g>
+<g fill="#1f2937" font-size="23" font-weight="600">
+<text x="190" y="359">Ads</text><text x="190" y="539">Trackers</text><text x="190" y="719">Malicious sites</text>
+</g>
+<g fill="none" stroke="#fca5a5" stroke-width="6" stroke-linecap="round" stroke-dasharray="10 12">
+<path d="M380 350h180"/><path d="M380 530h180"/><path d="M380 710h180"/>
+</g>
+<path d="M590 280v500" stroke="#bfdbfe" stroke-width="4" stroke-linecap="round"/>
+<use href="#stop" x="572" y="332" width="36" height="36"/><use href="#stop" x="572" y="512" width="36" height="36"/><use href="#stop" x="572" y="692" width="36" height="36"/>
+<text x="590" y="825" text-anchor="middle" font-size="18" fill="#64748b">Unwanted traffic blocked</text>
+
+<!-- DPN's original vector logo, unchanged, inside a protection shield. -->
+<path d="M785 330 935 390v130c0 114-83 194-150 232-67-38-150-118-150-232V390Z" fill="#fff" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+<path d="M785 351 916 403v117c0 96-65 169-131 210-66-41-131-114-131-210V403Z" fill="#eff6ff"/>
+<g transform="translate(724 420) scale(2.5)">
+<path d="M16.9862 25.54C16.9862 26.6819 18.0247 28.6231 23.217 28.5089C23.217 28.5089 33.1402 28.3947 38.1018 21.7717C42.8327 15.9479 40.4096 4.30047 23.5632 5.32819C16.7554 5.78495 6.71686 8.18296 6.71686 8.18296C6.71686 8.18296 19.9862 0.646362 33.2556 0.646362C43.0634 0.646362 48.8327 5.55657 48.8327 12.0654C48.8327 20.744 36.6018 31.3637 22.8709 31.3637C20.6786 31.3637 14.3323 30.6786 13.9862 25.9967C13.5246 20.9723 19.1785 18.5743 22.9863 18.2318C26.2171 17.8892 29.3325 18.9169 29.4479 21.0865C29.4479 21.0865 28.5248 19.2595 24.4863 19.7162C19.8709 20.4014 16.8708 23.0278 16.9862 25.54Z" fill="#495AF5"/>
+<path d="M31.8709 18.3458C31.8709 17.2039 30.8325 15.2627 25.6401 15.3769C25.6401 15.3769 15.7169 15.4911 10.7553 22.1141C6.02448 27.8237 8.44759 39.4711 25.1785 38.6718C31.9863 38.215 42.0249 35.817 42.0249 35.817C42.0249 35.817 28.7555 43.3536 15.6015 43.3536C5.79371 43.3536 0.0244141 38.4434 0.0244141 31.8204C0.0244141 23.1419 12.2553 12.5221 25.9863 12.5221C28.1786 12.5221 34.5248 13.2072 34.871 17.8891C35.3325 22.9135 29.6786 25.3115 25.8709 25.6541C22.6401 25.9966 19.5246 24.9689 19.4093 22.7993C19.4093 22.7993 20.3323 24.6263 24.3708 24.1696C28.9863 23.4844 31.9863 20.858 31.8709 18.3458Z" fill="#495AF5"/>
+</g>
+<text x="785" y="580" text-anchor="middle" font-size="30" font-weight="700" fill="#172554">DPN App</text>
+<text x="785" y="617" text-anchor="middle" font-size="20" fill="#64748b">Filtering &amp; protection</text>
+<path d="m770 653 10 10 21-23" fill="none" stroke="#16a34a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+<!-- Supported content on the protected side. -->
+<path d="M963 530h54m-10-10 10 10-10 10" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="#fff" stroke="#e5e7eb" stroke-width="2">
+<rect x="1050" y="270" width="390" height="220" rx="18"/>
+<rect x="1050" y="510" width="390" height="120" rx="18"/>
+<rect x="1050" y="650" width="390" height="150" rx="18"/>
+</g>
+<text x="1074" y="308" font-size="20" font-weight="600" fill="#1f2937">Video</text><use href="#check" x="1382" y="285" width="30" height="30"/>
+<rect x="1074" y="328" width="342" height="104" rx="10" fill="#dbeafe"/>
+<path d="m1228 351 35 29-35 29Z" fill="#2563eb"/>
+<path d="M1090 459h290" stroke="#e5e7eb" stroke-width="5" stroke-linecap="round"/><path d="M1090 459h125" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/>
+<text x="1074" y="547" font-size="20" font-weight="600" fill="#1f2937">Music</text><use href="#check" x="1382" y="524" width="30" height="30"/>
+<path d="M1088 581v12m14-22v32m14-26v20m14-36v52m14-44v36m14-24v12m14-30v48m14-57v66m14-49v32m14-39v46m14-32v18m14-26v34m14-24v14m14-33v52m14-42v32m14-23v14m14-30v46m14-35v24m14-18v12m14-10v8m14-9v10m14-8v6" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+<text x="1074" y="687" font-size="20" font-weight="600" fill="#1f2937">Web</text><use href="#check" x="1382" y="664" width="30" height="30"/>
+<rect x="1074" y="708" width="80" height="66" rx="8" fill="#dbeafe"/>
+<path d="M1174 721h180M1174 743h218M1174 765h138" stroke="#cbd5e1" stroke-width="7" stroke-linecap="round"/>
+<text x="768" y="923" text-anchor="middle" font-size="20" fill="#64748b">Filter ads and trackers. Block known malicious destinations.</text>
+<text x="768" y="960" text-anchor="middle" font-size="16" fill="#94a3b8">Coverage varies by platform, app and enabled filtering rules.</text>
+</g>
+</svg>

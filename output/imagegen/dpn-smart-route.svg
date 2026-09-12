@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
+  <title id="title">DPN: Beyond VPN</title>
+  <desc id="desc">Multiple app categories travel through separate smart routes managed by the DPN app.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f9fafb"/>
+      <stop offset="1" stop-color="#eff6ff"/>
+    </linearGradient>
+    <linearGradient id="logo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#495af5"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#1f2937" flood-opacity=".12"/>
+    </filter>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+  </defs>
+
+  <rect width="1536" height="1024" fill="url(#bg)"/>
+  <circle cx="770" cy="515" r="360" fill="#dbeafe" opacity=".42" filter="url(#soft)"/>
+  <path d="M0 210 C280 120 390 280 610 185 S1020 85 1536 200" fill="none" stroke="#dbeafe" stroke-width="3"/>
+  <path d="M0 820 C260 720 420 890 680 790 S1120 690 1536 815" fill="none" stroke="#dbeafe" stroke-width="3"/>
+
+  <text x="768" y="112" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="700" fill="#172554">DPN: Beyond VPN</text>
+  <text x="768" y="162" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#64748b">Smart Route for every app</text>
+
+  <!-- App category cards -->
+  <g filter="url(#shadow)">
+    <rect x="80" y="250" width="190" height="120" rx="18" fill="#fff" stroke="#e5e7eb" stroke-width="2"/>
+    <rect x="80" y="410" width="190" height="120" rx="18" fill="#fff" stroke="#e5e7eb" stroke-width="2"/>
+    <rect x="80" y="570" width="190" height="120" rx="18" fill="#fff" stroke="#e5e7eb" stroke-width="2"/>
+    <rect x="80" y="730" width="190" height="120" rx="18" fill="#fff" stroke="#e5e7eb" stroke-width="2"/>
+  </g>
+  <!-- Video -->
+  <circle cx="132" cy="310" r="32" fill="#dbeafe"/>
+  <g transform="translate(108 286) scale(2)" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20.2 6 3 11l-.9-2.4c-.3-1.1.3-2.2 1.3-2.5l13.5-4c1.1-.3 2.2.3 2.5 1.3Z"/><path d="m6.2 5.3 3.1 3.9m3.1-5.8 3.1 4M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>
+  </g>
+  <text x="176" y="318" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600" fill="#1f2937">Video</text>
+  <!-- Music -->
+  <circle cx="132" cy="470" r="32" fill="#f3e8ff"/>
+  <g transform="translate(108 446) scale(2)" fill="none" stroke="#9333ea" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="18" r="4"/><path d="M12 18V2l7 4"/></g>
+  <text x="176" y="478" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600" fill="#1f2937">Music</text>
+  <!-- Gaming -->
+  <circle cx="132" cy="630" r="32" fill="#dcfce7"/>
+  <g transform="translate(108 606) scale(2)" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></g>
+  <text x="176" y="638" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600" fill="#1f2937">Gaming</text>
+  <!-- Browser -->
+  <circle cx="132" cy="790" r="32" fill="#ffedd5"/>
+  <g transform="translate(108 766) scale(2)" fill="none" stroke="#f97316" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></g>
+  <text x="176" y="798" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600" fill="#1f2937">Browser</text>
+
+  <!-- Routes into DPN -->
+  <path d="M270 310 C385 310 430 350 540 390" fill="none" stroke="#2563eb" stroke-width="12" stroke-linecap="round"/>
+  <path d="M270 470 C390 470 430 450 540 450" fill="none" stroke="#9333ea" stroke-width="12" stroke-linecap="round"/>
+  <path d="M270 630 C390 630 430 570 540 510" fill="none" stroke="#16a34a" stroke-width="12" stroke-linecap="round"/>
+  <path d="M270 790 C390 790 440 655 560 555" fill="none" stroke="#f97316" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- DPN logo control point -->
+  <g filter="url(#shadow)"><rect x="540" y="330" width="360" height="360" rx="42" fill="#fff" stroke="#dbeafe" stroke-width="3"/></g>
+  <circle cx="720" cy="480" r="112" fill="#eff6ff"/>
+  <g transform="translate(665 430) scale(2.25)">
+    <path d="M16.9862 25.54C16.9862 26.6819 18.0247 28.6231 23.217 28.5089c0 0 9.9232-.1142 14.8848-6.7372C42.8327 15.9479 40.4096 4.30047 23.5632 5.32819 16.7554 5.78495 6.71686 8.18296 6.71686 8.18296c0 0 13.26934-7.536598 26.53874-7.536598 9.8084 0 15.5771 4.910208 15.5771 11.419038 0 8.6786-12.2309 19.2983-25.9618 19.2983-2.1923 0-8.5386-.6851-8.8847-5.367C13.5246 20.9723 19.1785 18.5743 22.9863 18.2318c3.2308-.3426 6.3462.6851 6.4616 2.8547 0 0-.9231-1.827-4.9616-1.3703-4.6154.6851-7.6155 3.3116-7.5 5.8238Z" fill="url(#logo)" transform="translate(-1 -5)"/>
+    <path d="M31.8709 18.3458c0-1.142-1.0384-3.0831-6.2308-2.9689 0 0-9.9232.1142-14.8848 6.7372-4.7308 5.7096-2.3073 17.357 14.4232 16.5577 6.8078-.4568 16.847-2.8548 16.847-2.8548 0 0-13.2694 7.5366-26.4234 7.5366-9.8083 0-15.5771-4.9102-15.5771-11.5332 0-8.6785 12.2309-19.2983 25.9619-19.2983 2.1923 0 8.5385.6851 8.8847 5.367 0.4615 5.0244-5.1924 7.4224-9.0001 7.765-3.2308.3425-6.3462-.6852-6.4616-2.8548 0 0 .923 1.827 4.9615 1.3703 4.6155-.6851 7.6155-3.3116 7.5-5.8238Z" fill="url(#logo)" transform="translate(0 -5)"/>
+  </g>
+  <text x="720" y="615" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#172554">Smart Route</text>
+  <text x="720" y="650" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" fill="#64748b">DPN App</text>
+
+  <!-- Routes out to distinct nodes -->
+  <path d="M900 390 C1015 350 1050 310 1130 310 H1370" fill="none" stroke="#2563eb" stroke-width="12" stroke-linecap="round"/>
+  <path d="M900 450 C1010 450 1050 470 1130 470 H1370" fill="none" stroke="#9333ea" stroke-width="12" stroke-linecap="round"/>
+  <path d="M900 510 C1010 570 1050 630 1130 630 H1370" fill="none" stroke="#16a34a" stroke-width="12" stroke-linecap="round"/>
+  <path d="M900 555 C1010 655 1050 790 1130 790 H1370" fill="none" stroke="#f97316" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- Destination nodes -->
+  <g filter="url(#shadow)"><circle cx="1390" cy="310" r="48" fill="#fff" stroke="#bfdbfe" stroke-width="3"/><circle cx="1390" cy="470" r="48" fill="#fff" stroke="#e9d5ff" stroke-width="3"/><circle cx="1390" cy="630" r="48" fill="#fff" stroke="#bbf7d0" stroke-width="3"/><circle cx="1390" cy="790" r="48" fill="#fff" stroke="#fed7aa" stroke-width="3"/></g>
+  <path d="M1390 279c-17 0-29 12-29 28 0 20 29 43 29 43s29-23 29-43c0-16-12-28-29-28Zm0 20a8 8 0 1 1 0 16 8 8 0 0 1 0-16Z" fill="#2563eb"/>
+  <path d="M1390 439c-17 0-29 12-29 28 0 20 29 43 29 43s29-23 29-43c0-16-12-28-29-28Zm0 20a8 8 0 1 1 0 16 8 8 0 0 1 0-16Z" fill="#9333ea"/>
+  <path d="M1390 599c-17 0-29 12-29 28 0 20 29 43 29 43s29-23 29-43c0-16-12-28-29-28Zm0 20a8 8 0 1 1 0 16 8 8 0 0 1 0-16Z" fill="#16a34a"/>
+  <path d="M1390 759c-17 0-29 12-29 28 0 20 29 43 29 43s29-23 29-43c0-16-12-28-29-28Zm0 20a8 8 0 1 1 0 16 8 8 0 0 1 0-16Z" fill="#f97316"/>
+  <text x="768" y="930" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#64748b">Different routes, at the same time</text>
+</svg>
