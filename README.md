@@ -1,8 +1,10 @@
 # DPN: Beyond VPN
 
+**English** | [Русский](README.ru.md)
+
 **DPN** is a privacy-oriented app from [Deeper Network](https://www.deeper.network/) that combines app-aware routing, selectable encrypted tunnels, and network-level filtering in one device-level application.
 
-[Download DPN](https://dpn.deeper.network/download) | [How DPN Works](https://dpn.deeper.network/how-dpn-works) | [FAQ](https://dpn.deeper.network/faq)
+[GitHub Download Mirror](https://github.com/tiger-zsh/dpn-app/releases/latest) | [Official Download Page](https://dpn.deeper.network/download) | [How DPN Works](https://dpn.deeper.network/how-dpn-works) | [FAQ](https://dpn.deeper.network/faq)
 
 > **7-day free trial code:** `ZJXYY8NB`
 
@@ -25,17 +27,28 @@ Traditional full-tunnel VPNs send included traffic through a single exit. DPN gi
 | **Full Route** | Sends traffic through one selected exit route. |
 | **Direct Route** | Keeps ordinary traffic direct while retaining supported filtering controls. |
 
-## Supported Platforms
+## Download DPN
 
-| Platform | Distribution |
-| --- | --- |
-| Windows | 64-bit installer |
-| macOS | Apple Silicon and Intel installers |
-| Linux | 64-bit Debian package |
-| Android | APK |
-| iOS | [Apple App Store](https://apps.apple.com/us/app/dpn-beyond-vpn/id6748636811) |
+Open the [latest GitHub mirror release](https://github.com/tiger-zsh/dpn-app/releases/latest) and choose your installer under **Assets**. Older mirrored packages remain available in [all mirror releases](https://github.com/tiger-zsh/dpn-app/releases). The original installers are also available on the [official download page](https://dpn.deeper.network/download).
 
-Visit the [official download page](https://dpn.deeper.network/download) for the versions currently available for your device. Installers published through this repository are attached to the [GitHub Releases](https://github.com/DeeperNetwork/dpn-app/releases) page.
+The GitHub download mirror is maintained by [tiger-zsh](https://github.com/tiger-zsh/dpn-app), separately from the [official repository](https://github.com/DeeperNetwork/dpn-app). It copies the official installers without modification; it is not an official Deeper Network release channel.
+
+| Platform | Architecture | Installer to choose |
+| --- | --- | --- |
+| Windows | x86-64 | `DPN-<version>-windows-x86-64.exe` |
+| macOS | Apple Silicon (M-series) | `DPN-<version>-macos-arm-64.dmg` |
+| macOS | Intel | `DPN-<version>-macos-x86-64.dmg` |
+| Linux | x86-64, Debian/Ubuntu | `DPN-<version>-linux-x86-64.deb` |
+| Android | Official APK | `DPN-<version>-android-x64.apk` |
+| iOS | iPhone/iPad | [Apple App Store](https://apps.apple.com/us/app/dpn-beyond-vpn/id6748636811) |
+
+Versions can differ by platform. The Android filename follows the publisher's naming; it is not a statement of supported CPU architectures. iOS is distributed through the App Store, not as a GitHub installer.
+
+### Verify Your Download
+
+Each mirrored release includes `SHA256SUMS.txt` and `download-manifest.json`, listing the original download URLs, versions, file sizes, and SHA-256 hashes. The installers are mirrored without modification or re-signing. Checksums detect changed or incomplete downloads; they are not an independent publisher signature.
+
+Download `SHA256SUMS.txt` alongside your chosen installer. On macOS or Linux, calculate its hash with `shasum -a 256 <installer-file>` or `sha256sum <installer-file>` and compare it with the matching entry. In Windows PowerShell, use `Get-FileHash .\<installer-file> -Algorithm SHA256`.
 
 ## Filtering Notes
 
@@ -67,3 +80,5 @@ DPN is an official Deeper Network software product that runs directly on an indi
 ## About This Repository
 
 This repository is the public distribution home for DPN release packages and release notes. It does not contain the DPN source code. Use of DPN is subject to the [Terms of Use](https://dpn.deeper.network/terms-of-use).
+
+Maintainers: see [Publishing Downloads](docs/publishing-downloads.md) for the official-source mirror and release workflow.
