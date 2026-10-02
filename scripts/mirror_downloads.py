@@ -170,7 +170,10 @@ def publish(args, files, notes):
        "--target", args.target, "--title", "DPN Downloads / Загрузка DPN (" + args.tag + ")",
        "--notes-file", str(notes), "--draft")
     gh("release", "upload", args.tag, "--repo", args.repository, *map(str, files))
-    release = json.loads(gh("api", "repos/" + args.repository + "/releases/tags/" + args.tag))
+    release_id = json.loads(gh("release", "view", args.tag, "--repo", args.repository,
+                               "--json", "databaseId"))["databaseId"]
+    # GitHub's tag endpoint omits drafts, even for the repository owner.
+    release = json.loads(gh("api", "repos/" + args.repository + "/releases/" + str(release_id)))
     verify_uploaded(release["assets"], files)
     gh("release", "edit", args.tag, "--repo", args.repository, "--draft=false", "--latest")
     print("Published: https://github.com/" + args.repository + "/releases/tag/" + args.tag, flush=True)

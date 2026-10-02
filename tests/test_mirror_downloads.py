@@ -172,15 +172,16 @@ class PublishTests(unittest.TestCase):
             path.write_bytes(b"MZ00")
             metadata = {"name": path.name, "size": 4,
                         "digest": "sha256:" + hashlib.sha256(b"MZ00").hexdigest()}
-            with patch("scripts.mirror_downloads.gh", side_effect=["", "", json.dumps({"assets": [metadata]}), ""]) as cli:
+            with patch("scripts.mirror_downloads.gh", side_effect=["", "", json.dumps({"databaseId": 42}), json.dumps({"assets": [metadata]}), ""]) as cli:
                 publish(args, [path], Path(directory) / "notes.md")
             calls = [call.args for call in cli.call_args_list]
             self.assertEqual(calls[0][:2], ("release", "create"))
             self.assertIn("--draft", calls[0])
             self.assertEqual(calls[1][:2], ("release", "upload"))
-            self.assertEqual(calls[2][0], "api")
-            self.assertEqual(calls[3][:2], ("release", "edit"))
-            self.assertIn("--draft=false", calls[3])
+            self.assertEqual(calls[2][:2], ("release", "view"))
+            self.assertEqual(calls[3], ("api", "repos/owner/repo/releases/42"))
+            self.assertEqual(calls[4][:2], ("release", "edit"))
+            self.assertIn("--draft=false", calls[4])
 
     def test_failed_upload_or_verification_leaves_draft(self):
         args = SimpleNamespace(tag="downloads-test", repository="owner/repo", target="main")
@@ -189,7 +190,7 @@ class PublishTests(unittest.TestCase):
             path.write_bytes(b"MZ00")
             for outcomes, exception in [
                 (["", subprocess.CalledProcessError(1, "gh")], subprocess.CalledProcessError),
-                (["", "", json.dumps({"assets": []})], ValueError),
+                (["", "", json.dumps({"databaseId": 42}), json.dumps({"assets": []})], ValueError),
             ]:
                 with self.subTest(outcomes=outcomes):
                     with patch("scripts.mirror_downloads.gh", side_effect=outcomes) as cli:
