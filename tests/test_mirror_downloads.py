@@ -50,6 +50,17 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(len(assets), 5)
         self.assertEqual(len({asset["version"] for asset in assets}), 2)
 
+    def test_build_metadata_is_preserved(self):
+        data = catalog()
+        entry = data["platforms"]["windows"]
+        old = entry["latestVersion"]
+        entry["latestVersion"] += "+b4d48c6"
+        asset = entry["latest"][0]
+        asset["version"] = entry["latestVersion"]
+        asset["fileName"] = asset["fileName"].replace(old, asset["version"])
+        asset["url"] = DOWNLOAD_ORIGIN + asset["fileName"]
+        self.assertEqual(official_assets(data)[0], asset)
+
     def test_invalid_catalog_structure_is_rejected(self):
         for data in [None, [], {}, {"platforms": []}, {"platforms": {"windows": None}},
                      {"platforms": {"windows": {"latestVersion": "1.0", "latest": [None]}}}]:

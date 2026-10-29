@@ -47,14 +47,14 @@ def official_assets(catalog):
             arch = asset.get("arch", "")
             if (
                 not isinstance(name, str)
-                or not re.fullmatch(r"DPN-[A-Za-z0-9_.-]+", name)
+                or not re.fullmatch(r"DPN-[A-Za-z0-9_.+-]+", name)
                 or not name.endswith(extension)
                 or name in names
                 or url != DOWNLOAD_ORIGIN + name
                 or asset.get("platform") != platform
                 or not isinstance(version, str)
                 or version != entry["latestVersion"]
-                or not re.fullmatch(r"\d+(?:\.\d+)+", version)
+                or not re.fullmatch(r"\d+(?:\.\d+)+(?:\+[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*)?", version)
                 or not isinstance(arch, str)
                 or not re.fullmatch(r"[A-Za-z0-9_-]+", arch)
                 or not isinstance(size, int)
