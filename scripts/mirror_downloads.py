@@ -4,11 +4,13 @@
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.error import HTTPError
 from urllib.parse import quote, urlparse
 from urllib.request import Request, urlopen
 
@@ -64,10 +66,13 @@ def official_assets(catalog):
             ):
                 raise ValueError("Invalid official installer metadata: " + repr(name))
             names.add(name)
-            assets.append({
+            record = {
                 "platform": platform, "version": version, "arch": arch,
                 "fileName": name, "url": url, "size": size,
-            })
+            }
+            if asset.get("lastModified"):
+                record["lastModified"] = asset["lastModified"]
+            assets.append(record)
     if not {"arm-64", "x86-64"}.issubset(
         {asset["arch"] for asset in assets if asset["platform"] == "mac"}
     ):
@@ -156,6 +161,56 @@ def gh(*args):
     return subprocess.check_output(["gh", *args], text=True).strip()
 
 
+def snapshot_matches(assets, manifest, uploaded):
+    previous = {a["fileName"]: a for a in manifest["assets"]}
+    if set(previous) != {a["fileName"] for a in assets}:
+        return False
+    if "SHA256SUMS.txt" not in uploaded:
+        return False
+    mirrored_at = datetime.fromisoformat(manifest["mirroredAt"].replace("Z", "+00:00"))
+    for asset in assets:
+        name = asset["fileName"]
+        old = previous[name]
+        remote = uploaded.get(name, {})
+        for field in ("version", "platform", "arch", "size", "url"):
+            if old.get(field) != asset[field]:
+                return False
+        if remote.get("size") != asset["size"] or remote.get("digest") != "sha256:" + old["sha256"]:
+            return False
+        modified = asset.get("lastModified")
+        if modified:
+            if "lastModified" in old and old["lastModified"] != modified:
+                return False
+            if "lastModified" not in old and datetime.fromisoformat(modified.replace("Z", "+00:00")) > mirrored_at:
+                return False
+    return True
+
+
+def current_release_tag(repository, assets):
+    req = request("https://api.github.com/repos/" + repository + "/releases/latest")
+    if os.environ.get("GH_TOKEN"):
+        req.add_header("Authorization", "Bearer " + os.environ["GH_TOKEN"])
+    try:
+        with urlopen(req, timeout=30) as response:
+            release = json.load(response)
+    except HTTPError as error:
+        if error.code == 404:
+            return None
+        raise
+    uploaded = {a["name"]: a for a in release["assets"]}
+    manifest_asset = uploaded.get("download-manifest.json")
+    if not manifest_asset:
+        return None
+    with urlopen(request(manifest_asset["browser_download_url"]), timeout=30) as response:
+        raw = response.read()
+    if manifest_asset["digest"] != "sha256:" + hashlib.sha256(raw).hexdigest():
+        raise ValueError("Published manifest digest mismatch")
+    manifest = json.loads(raw)
+    if manifest["repository"] != repository or manifest["tag"] != release["tag_name"]:
+        raise ValueError("Published manifest does not identify this release")
+    return release["tag_name"] if snapshot_matches(assets, manifest, uploaded) else None
+
+
 def verify_uploaded(assets, files):
     uploaded = {asset["name"]: asset for asset in assets}
     if set(uploaded) != {path.name for path in files}:
@@ -182,23 +237,31 @@ def publish(args, files, notes):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--tag", required=True, help="Unique snapshot tag, e.g. downloads-2026-10-02")
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--tag", help="Unique snapshot tag, e.g. downloads-2026-10-02")
+    mode.add_argument("--sync", action="store_true", help="Prepare a new snapshot only if the latest release differs")
     parser.add_argument("--repository", default="DeeperNetwork/dpn-app")
     parser.add_argument("--target", default="main", help="Existing remote branch or commit for the release tag")
     parser.add_argument("--output", type=Path, default=Path("dist/downloads"))
     parser.add_argument("--publish", action="store_true", help="Upload, verify, then publish a GitHub Release")
     args = parser.parse_args()
-    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", args.tag):
+    if args.tag is not None and not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", args.tag):
         parser.error("Tag must contain only letters, numbers, dots, underscores, and hyphens")
     if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", args.repository):
         parser.error("Repository must use owner/name format")
-    if args.publish:
-        permissions = json.loads(gh("api", "repos/" + args.repository))["permissions"]
-        if not permissions.get("push"):
+    if args.publish and not args.sync:
+        permissions = json.loads(gh("api", "repos/" + args.repository)).get("permissions", {})
+        if permissions.get("push") is False:
             raise ValueError("GitHub write access is required for " + args.repository)
     with urlopen(request(DOWNLOAD_API), timeout=30) as response:
         catalog = json.load(response)
     assets = official_assets(catalog)
+    if args.sync:
+        current = current_release_tag(args.repository, assets)
+        if current:
+            print(f"Up to date: {current} matches all {len(assets)} official installers.")
+            return
+        args.tag = datetime.now(timezone.utc).strftime("downloads-%Y-%m-%d-%H%M%SZ")
     args.output.mkdir(parents=True, exist_ok=True)
     records = []
     for asset in assets:
