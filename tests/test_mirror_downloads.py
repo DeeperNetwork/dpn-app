@@ -68,13 +68,26 @@ class CatalogTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     official_assets(data)
 
+    def test_apk_without_architecture_and_encoded_build_metadata(self):
+        data = catalog()
+        entry = data["platforms"]["android"]
+        version = "3.0.10.261121+a5c09cc"
+        name = f"DPN-{version}-android.apk"
+        entry["latestVersion"] = version
+        asset = entry["latest"][0]
+        asset.update(version=version, arch="", fileName=name, url=DOWNLOAD_ORIGIN + name.replace("+", "%2B"))
+        self.assertIn(asset, official_assets(data))
+        notes = release_notes([asset], "DeeperNetwork/dpn-app", "downloads-test")
+        self.assertIn(name.replace("+", "%2B"), notes)
+        self.assertIn("| — |", notes)
+
     def test_invalid_metadata_is_rejected(self):
         for field, value in [
             ("fileName", "../DPN-escape.exe"),
             ("url", "https://example.com/DPN-installer.exe"),
             ("size", 0), ("size", True), ("size", "4"),
             ("version", "0.0.0"), ("platform", "linux"),
-            ("arch", "x64|injected"),
+            ("arch", "x64|injected"), ("arch", ""),
             ("fileName", None), ("arch", None), ("version", None),
         ]:
             with self.subTest(field=field, value=value):
