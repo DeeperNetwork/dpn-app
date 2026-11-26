@@ -11,7 +11,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 from scripts.mirror_downloads import (
-    DOWNLOAD_ORIGIN, download, official_assets, publish, release_notes, verify_uploaded,
+    DOWNLOAD_ORIGIN, download, main, official_assets, publish, release_notes, snapshot_matches, verify_uploaded,
 )
 
 
@@ -132,6 +132,65 @@ class CatalogTests(unittest.TestCase):
         self.assertIn("Apple Silicon", notes)
         self.assertIn("Intel", notes)
         self.assertIn("apps.apple.com", notes)
+
+
+class SyncTests(unittest.TestCase):
+    def setUp(self):
+        self.assets = official_assets(catalog())
+        self.records = [dict(asset, sha256="a" * 64) for asset in reversed(self.assets)]
+        self.manifest = {"mirroredAt": "2026-11-26T01:00:00+00:00", "assets": self.records}
+        self.uploaded = {a["fileName"]: {"size": a["size"], "digest": "sha256:" + a["sha256"]} for a in self.records}
+        self.uploaded["SHA256SUMS.txt"] = {}
+
+    def matches(self):
+        return snapshot_matches(self.assets, self.manifest, self.uploaded)
+
+    def test_existing_manifest_without_source_timestamps_is_current(self):
+        self.assets[0]["lastModified"] = "2026-11-20T02:00:00.000Z"
+        self.assertTrue(self.matches())
+
+    def test_same_name_and_size_reuploaded_upstream(self):
+        self.assets[0]["lastModified"] = "2026-11-27T01:00:00Z"
+        self.assertFalse(self.matches())
+        self.records[-1]["lastModified"] = self.assets[0]["lastModified"]
+        self.assertTrue(self.matches())
+
+    def test_changed_build_or_missing_github_asset(self):
+        self.assertFalse(snapshot_matches(self.assets[:-1], self.manifest, self.uploaded))
+        self.assets[0]["version"] += ".1"
+        self.assertFalse(self.matches())
+        self.assets[0]["version"] = self.records[-1]["version"]
+        del self.uploaded[self.assets[0]["fileName"]]
+        self.assertFalse(self.matches())
+
+    def test_incorrect_github_digest(self):
+        self.uploaded[self.assets[0]["fileName"]]["digest"] = "sha256:" + "b" * 64
+        self.assertFalse(self.matches())
+
+    def test_sync_publishes_one_complete_changed_snapshot(self):
+        with tempfile.TemporaryDirectory() as directory:
+            args = ["mirror", "--sync", "--publish", "--output", directory]
+            responses = [io.BytesIO(json.dumps(catalog()).encode())]
+            responses.extend(Response(b"DPN!", a["url"]) for a in self.assets)
+            with patch("sys.argv", args), patch("scripts.mirror_downloads.current_release_tag", return_value=None), \
+                    patch("scripts.mirror_downloads.urlopen", side_effect=responses), patch("scripts.mirror_downloads.publish") as upload:
+                main()
+            options, files, notes = upload.call_args.args
+            self.assertRegex(options.tag, r"^downloads-\d{4}-\d{2}-\d{2}-\d{6}Z$")
+            self.assertEqual(len(files), 7)
+            manifest = json.loads((Path(directory) / "download-manifest.json").read_text())
+            self.assertEqual(manifest["tag"], options.tag)
+            self.assertEqual({a["sha256"] for a in manifest["assets"]}, {hashlib.sha256(b"DPN!").hexdigest()})
+            self.assertTrue(notes.is_file())
+
+    def test_current_snapshot_skips_download_and_publication(self):
+        raw = io.BytesIO(json.dumps(catalog()).encode())
+        with patch("sys.argv", ["mirror", "--sync", "--publish"]), \
+                patch("scripts.mirror_downloads.current_release_tag", return_value="downloads-current"), \
+                patch("scripts.mirror_downloads.urlopen", return_value=raw) as fetch, patch("scripts.mirror_downloads.publish") as upload:
+            main()
+        self.assertEqual(fetch.call_count, 1)
+        upload.assert_not_called()
 
 
 class DownloadTests(unittest.TestCase):
