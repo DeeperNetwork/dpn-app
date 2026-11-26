@@ -9,7 +9,7 @@ import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 from urllib.request import Request, urlopen
 
 
@@ -50,13 +50,14 @@ def official_assets(catalog):
                 or not re.fullmatch(r"DPN-[A-Za-z0-9_.+-]+", name)
                 or not name.endswith(extension)
                 or name in names
-                or url != DOWNLOAD_ORIGIN + name
+                or url not in (DOWNLOAD_ORIGIN + name, DOWNLOAD_ORIGIN + quote(name, safe=""))
                 or asset.get("platform") != platform
                 or not isinstance(version, str)
                 or version != entry["latestVersion"]
                 or not re.fullmatch(r"\d+(?:\.\d+)+(?:\+[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*)?", version)
                 or not isinstance(arch, str)
-                or not re.fullmatch(r"[A-Za-z0-9_-]+", arch)
+                or (not arch and platform != "android")
+                or not re.fullmatch(r"[A-Za-z0-9_-]*", arch)
                 or not isinstance(size, int)
                 or isinstance(size, bool)
                 or size <= 0
@@ -126,11 +127,11 @@ def release_notes(assets, repository, tag):
     base = "https://github.com/" + repository + "/releases/download/" + tag + "/"
     for asset in assets:
         label = PLATFORMS[asset["platform"]][0]
-        arch = asset["arch"]
+        arch = asset["arch"] or "—"
         if asset["platform"] == "mac":
             arch = "Apple Silicon" if arch == "arm-64" else "Intel"
         lines.append("| {} | {} | {} | [{}]({}) |".format(
-            label, asset["version"], arch, asset["fileName"], base + asset["fileName"]
+            label, asset["version"], arch, asset["fileName"], base + quote(asset["fileName"], safe="")
         ))
     lines += [
         "", "**iOS:** [Apple App Store](https://apps.apple.com/us/app/dpn-beyond-vpn/id6748636811).",
